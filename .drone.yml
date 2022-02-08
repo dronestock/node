@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: Maven插件
+name: Node插件
 
 
 clone:
@@ -22,7 +22,7 @@ steps:
     image: pangum/drone
     pull: always
     settings:
-      output: maven
+      output: node
 
   - name: 推送Docker镜像到中央库
     image: dronestock/docker
@@ -32,7 +32,7 @@ steps:
       - name: cache
         path: /var/lib/docker
     settings:
-      repository: dronestock/maven
+      repository: dronestock/node
       username: dronestock
       password:
         from_secret: token_docker

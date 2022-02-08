@@ -1,20 +1,21 @@
 # maven
 
-Drone持续集成Maven插件，功能
+Drone持续集成Node插件，功能
 
-- 测试
-- 打包
-- 发布
+- 内置支持
+  - Npm
+  - Yarn
+- 依赖管理
+- 脚本执行
 
 ## 使用
 
 非常简单，只需要在`.drone.yml`里增加配置
 
 ```yaml
-- name: 发布到Maven仓库
-  image: dronestock/maven
+- name: 编译
+  image: dronestock/node
   setttings:
-    username: xxx
-    password: xxx
-    token: xxx
+    scripts:
+      - build # 默认值，可以不用配置
 ```

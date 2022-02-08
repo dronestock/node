@@ -5,11 +5,11 @@ LABEL author="storezhang<华寅>"
 LABEL email="storezhang@gmail.com"
 LABEL qq="160290688"
 LABEL wechat="storezhang"
-LABEL description="Drone持续集成Yarn插件，支持测试、依赖管理、编译、打包等常规功能"
+LABEL description="Drone持续集成Node插件，支持测试、依赖管理、编译、打包等常规功能"
 
 
 # 复制文件
-COPY yarn /bin
+COPY node /bin
 
 
 RUN set -ex \
@@ -18,22 +18,17 @@ RUN set -ex \
     \
     # 安装依赖库
     && apk update \
-    && apk --no-cache add node \
-    \
-    # 解决找不到库的问题
-    && LD_PATH=/etc/ld-musl-x86_64.path \
-    && echo "/lib" >> ${LD_PATH} \
-    && echo "/usr/lib" >> ${LD_PATH} \
-    && echo "/usr/local/lib" >> ${LD_PATH} \
-    && echo "${JAVA_HOME}/lib/default" >> ${LD_PATH} \
-    && echo "${JAVA_HOME}/lib/j9vm" >> ${LD_PATH} \
-    && echo "${JAVA_HOME}/lib/server" >> ${LD_PATH} \
+    # 安装Node.js主体程序
+    && apk --no-cache --update add nodejs \
+    # 安装Npm依赖管理
+    && apk --no-cache --update add npm \
+    # 安装Yarn依赖管理
+    && npm install --global node \
     \
     \
     \
     # 增加执行权限
-    && chmod +x /bin/yarn \
-    && chmod +x /usr/bin/gsk \
+    && chmod +x /bin/node \
     \
     \
     \
@@ -42,4 +37,4 @@ RUN set -ex \
 
 
 # 执行命令
-ENTRYPOINT /bin/yarn
+ENTRYPOINT /bin/node
