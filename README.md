@@ -16,6 +16,7 @@ Drone持续集成Node插件，功能
 - name: 编译
   image: dronestock/node
   setttings:
+    folder: . # 默认值
     scripts:
-      - build # 默认值，可以不用配置
+      - build # 默认值
 ```
