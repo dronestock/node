@@ -23,7 +23,7 @@ RUN set -ex \
     # 安装Npm依赖管理
     && apk --no-cache --update add npm \
     # 安装Yarn依赖管理
-    && npm install --global node \
+    && npm install --global yarn \
     \
     \
     \
