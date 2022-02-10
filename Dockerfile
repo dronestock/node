@@ -22,6 +22,8 @@ RUN set -ex \
     && apk --no-cache --update add nodejs \
     # 安装Npm依赖管理
     && apk --no-cache --update add npm \
+    # 加速Npm
+    && npm config set registry https://registry.npmmirror.com \
     # 安装Yarn依赖管理
     && npm install --global yarn \
     \
