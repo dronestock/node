@@ -5,7 +5,7 @@ import (
 )
 
 func (p *plugin) install() (undo bool, err error) {
-	err = p.Exec(pnpmExe, drone.Args(`install`), drone.Dir(p.Folder))
+	err = p.Exec(exe, drone.Args(`install`), drone.Dir(p.Folder))
 
 	return
 }

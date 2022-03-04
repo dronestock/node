@@ -1,6 +1,6 @@
 package main
 
 const (
-	pnpmExe       = `pnpm`
+	exe           = `yarn`
 	configScripts = `scripts`
 )

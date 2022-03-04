@@ -28,9 +28,8 @@ RUN set -ex \
     && apk --no-cache --update add npm \
     # 加速Npm
     && npm config set registry https://registry.npmmirror.com \
-    # 安装Pnpm依赖管理
-    && npm install --global pnpm \
-    && pnpm config set store-dir ${MODULE_PATH}\
+    # 安装Yarn依赖管理
+    && npm install --global yarn \
     \
     \
     \
