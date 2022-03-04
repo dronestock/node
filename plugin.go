@@ -11,8 +11,6 @@ type plugin struct {
 
 	// 目录
 	Folder string `default:"${PLUGIN_FOLDER=${FOLDER=.}}" validate:"required"`
-	// 类型
-	Type string `default:"${PLUGIN_TYPE=${TYPE=yarn}}" validate:"required,oneof=npm yarn"`
 	// 脚本列表
 	Scripts []string `default:"${PLUGIN_SCRIPTS=${SCRIPTS=['build']}}" validate:"required,dive"`
 }
@@ -35,7 +33,6 @@ func (p *plugin) Steps() []*drone.Step {
 func (p *plugin) Fields() gox.Fields {
 	return []gox.Field{
 		field.String(`folder`, p.Folder),
-		field.String(`type`, p.Type),
 		field.Strings(`scripts`, p.Scripts...),
 	}
 }

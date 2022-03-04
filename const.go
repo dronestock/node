@@ -1,8 +1,6 @@
 package main
 
 const (
-	npmExe  = `npm`
-	yarnExe = `yarn`
-
+	pnpmExe       = `pnpm`
 	configScripts = `scripts`
 )
