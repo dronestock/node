@@ -1,22 +1,26 @@
 package main
 
 import (
-	`github.com/dronestock/drone`
-	`github.com/storezhang/gox`
-	`github.com/storezhang/gox/field`
+	"github.com/dronestock/drone"
+	"github.com/goexl/gox"
+	"github.com/goexl/gox/field"
 )
 
 type plugin struct {
-	drone.PluginBase
+	drone.Base
 
-	// 目录
-	Folder string `default:"${PLUGIN_FOLDER=${FOLDER=.}}" validate:"required"`
+	// 代码
+	Source string `default:"${SOURCE=.}" validate:"required"`
 	// 脚本列表
-	Scripts []string `default:"${PLUGIN_SCRIPTS=${SCRIPTS=['build']}}" validate:"required,dive"`
+	Scripts []string `default:"${SCRIPTS=['build']}" validate:"required,dive"`
+
+	card *card
 }
 
 func newPlugin() drone.Plugin {
-	return new(plugin)
+	return &plugin{
+		card: new(card),
+	}
 }
 
 func (p *plugin) Config() drone.Config {
@@ -25,14 +29,14 @@ func (p *plugin) Config() drone.Config {
 
 func (p *plugin) Steps() []*drone.Step {
 	return []*drone.Step{
-		drone.NewStep(p.install, drone.Name(`安装依赖`)),
-		drone.NewStep(p.scripts, drone.Name(`执行脚本`)),
+		drone.NewStep(p.install, drone.Name(`依赖`)),
+		drone.NewStep(p.scripts, drone.Name(`脚本`)),
 	}
 }
 
 func (p *plugin) Fields() gox.Fields {
 	return []gox.Field{
-		field.String(`folder`, p.Folder),
+		field.String(`folder`, p.Source),
 		field.Strings(`scripts`, p.Scripts...),
 	}
 }

@@ -1,4 +1,4 @@
-# maven
+# Node
 
 Drone持续集成Node插件，功能
 
@@ -16,10 +16,15 @@ Drone持续集成Node插件，功能
 - name: 编译
   image: dronestock/node
   settings:
-    folder: . # 默认值
+    source: . # 默认值
     scripts:
       - build # 默认值
 ```
+
+## 捐助
+
+![支持宝](https://github.com/storezhang/donate/raw/master/alipay-small.jpg)
+![微信](https://github.com/storezhang/donate/raw/master/weipay-small.jpg)
 
 ## 感谢Jetbrains
 

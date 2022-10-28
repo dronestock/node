@@ -1,6 +1,3 @@
 package main
 
-const (
-	exe           = `yarn`
-	configScripts = `scripts`
-)
+const exe = `yarn`
