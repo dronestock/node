@@ -1,6 +1,8 @@
 package main
 
 import (
+	"reflect"
+
 	"github.com/dronestock/drone"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
@@ -27,11 +29,18 @@ func (p *plugin) Config() drone.Config {
 	return p
 }
 
-func (p *plugin) Steps() []*drone.Step {
-	return []*drone.Step{
+func (p *plugin) Steps() (steps drone.Steps) {
+	steps = drone.Steps{
 		drone.NewStep(p.install, drone.Name(`依赖`)),
-		drone.NewStep(p.scripts, drone.Name(`脚本`)),
 	}
+
+	options := drone.NewStepOptions(drone.Name(`脚本`))
+	if reflect.DeepEqual(p.Scripts, []string{"build"}) {
+		options = append(options, drone.Interrupt())
+	}
+	steps.Add(drone.NewStep(p.scripts, options...))
+
+	return
 }
 
 func (p *plugin) Fields() gox.Fields {
