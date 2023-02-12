@@ -68,7 +68,7 @@ steps:
       output: $${CHANGELOG_TAG_OUTPUT}
       tag: $${DRONE_TAG}
 
-  - name: 发布
+  - name: 推送
     image: ccr.ccs.tencentyun.com/dronestock/github
     when:
       event:
