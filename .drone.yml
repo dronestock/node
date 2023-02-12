@@ -16,7 +16,7 @@ environment:
 
 
 steps:
-  - name: 拉代码
+  - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
 
   - name: 编译
