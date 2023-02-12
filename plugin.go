@@ -31,21 +31,21 @@ func (p *plugin) Config() drone.Config {
 
 func (p *plugin) Steps() (steps drone.Steps) {
 	steps = drone.Steps{
-		drone.NewStep(p.install, drone.Name(`依赖`)),
+		drone.NewStep(newInstallStep(p)).Name("依赖").Build(),
 	}
 
-	options := drone.NewStepOptions(drone.Name(`脚本`))
+	scripts := drone.NewStep(newScriptsStep(p)).Name("脚本")
 	if reflect.DeepEqual(p.Scripts, []string{"build"}) {
-		options = append(options, drone.Interrupt())
+		scripts.Interrupt()
 	}
-	steps.Add(drone.NewStep(p.scripts, options...))
+	steps.Add(scripts.Build())
 
 	return
 }
 
-func (p *plugin) Fields() gox.Fields {
-	return []gox.Field{
-		field.String(`folder`, p.Source),
-		field.Strings(`scripts`, p.Scripts...),
+func (p *plugin) Fields() gox.Fields[any] {
+	return gox.Fields[any]{
+		field.New("folder", p.Source),
+		field.New("scripts", p.Scripts),
 	}
 }

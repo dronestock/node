@@ -1,3 +1,3 @@
 package main
 
-const exe = `yarn`
+const exe = "yarn"

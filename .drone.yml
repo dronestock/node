@@ -7,6 +7,13 @@ clone:
   disable: true
 
 
+environment:
+  OUTPUT_LINUX: jchu.amd64.lin
+  OUTPUT_WINDOWS: jchu.amd64.exe
+  OUTPUT_MAC: jchu.amd64.mac
+  CHANGELOG_TAG_OUTPUT: CHANGELOG.tag.md
+
+
 steps:
   - name: 拉代码
     image: ccr.ccs.tencentyun.com/dronestock/git
@@ -17,11 +24,22 @@ steps:
       - name: go
         path: /var/lib/go
     settings:
-      output: node
+      outputs:
+        - name: node
+          os: linux
+          arch: amd64
+        - name: $${OUTPUT_LINUX}
+          os: linux
+          arch: amd64
+        - name: $${OUTPUT_WINDOWS}
+          os: windows
+          arch: amd64
+        - name: $${OUTPUT_MAC}
+          os: darwin
+          arch: amd64
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/docker
-    pull: always
     privileged: true
     volumes:
       - name: cache
@@ -40,6 +58,36 @@ steps:
           username: "160290688"
           password: $${PASSWORD_CCR}
           required: true
+
+  - name: 改变
+    image: ccr.ccs.tencentyun.com/dronestock/changelog
+    when:
+      event:
+        - tag
+    settings:
+      output: $${CHANGELOG_TAG_OUTPUT}
+      tag: $${DRONE_TAG}
+
+  - name: 发布
+    image: ccr.ccs.tencentyun.com/dronestock/github
+    when:
+      event:
+        - tag
+    environment:
+      TOKEN:
+        from_secret: token_github
+    settings:
+      release:
+        tag: $${DRONE_TAG}
+        token: $${TOKEN}
+        body: exe:file("$${CHANGELOG_TAG_OUTPUT}")
+        assets:
+          - name: $${NAME}-$${VERSION}-linux-amd64
+            file: $${OUTPUT_LINUX}
+          - name: $${NAME}-$${VERSION}-windows-amd64.exe
+            file: $${OUTPUT_WINDOWS}
+          - name: $${NAME}-$${VERSION}-darwin-amd64
+            file: $${OUTPUT_MAC}
 
 
 volumes:
