@@ -14,6 +14,8 @@ COPY node /bin
 
 # 模块存储目录
 ENV MODULE_PATH /var/lib/node
+# TODO 暂时解决Node版本过高导致的无法编译的问题
+ENV NODE_OPTIONS --openssl-legacy-provider
 
 
 RUN set -ex \
@@ -40,6 +42,9 @@ RUN set -ex \
     \
     && rm -rf /var/cache/apk/*
 
+
+# 工作目录
+WORKDIR /drone/src
 
 
 # 执行命令
