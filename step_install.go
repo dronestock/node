@@ -19,5 +19,5 @@ func (i *stepInstall) Runnable() bool {
 }
 
 func (i *stepInstall) Run(_ context.Context) error {
-	return i.Command(exe).Dir(i.Source).Exec()
+	return i.Command(exe).Args("--prefer-offline").Dir(i.Source).Exec()
 }
