@@ -1,11 +1,11 @@
 FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.16.2
 
 
-LABEL author="storezhang<华寅>"
-LABEL email="storezhang@gmail.com"
-LABEL qq="160290688"
-LABEL wechat="storezhang"
-LABEL description="Drone持续集成Node插件，支持测试、依赖管理、编译、打包等常规功能"
+LABEL author="storezhang<华寅>" \
+    email="storezhang@gmail.com" \
+    qq="160290688" \
+    wechat="storezhang" \
+    description="Drone持续集成Node插件，支持测试、依赖管理、编译、打包等常规功能"
 
 
 # 复制文件
