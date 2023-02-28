@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"strings"
 )
 
 type stepScripts struct {
@@ -18,12 +19,6 @@ func (s *stepScripts) Runnable() bool {
 	return true
 }
 
-func (s *stepScripts) Run(_ context.Context) (err error) {
-	for _, script := range s.Scripts {
-		if err = s.Command(exe).Args(script).Dir(s.Source).Exec(); nil != err {
-			return
-		}
-	}
-
-	return
+func (s *stepScripts) Run(_ context.Context) error {
+	return s.Command(exe).Args(strings.Join(s.Scripts, space)).Dir(s.Source).Exec()
 }
