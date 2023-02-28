@@ -96,3 +96,6 @@ volumes:
   - name: cache
     host:
       path: /var/lib/cache/docker
+  - name: go
+    host:
+      path: /var/lib/cache/go
