@@ -1,3 +1,7 @@
 package main
 
-const exe = "yarn"
+const (
+	exe     = "pnpm"
+	install = "install"
+	run     = "run"
+)

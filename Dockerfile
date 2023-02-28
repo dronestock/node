@@ -14,8 +14,10 @@ COPY node /bin
 
 # 模块存储目录
 ENV MODULE_PATH /var/lib/node
-# TODO 暂时解决Node版本过高导致的无法编译的问题
+# 修复安装其它模块时报SSL Provider错误
 ENV NODE_OPTIONS --openssl-legacy-provider
+# Pnpm模块存储路径
+ENV XDG_DATA_HOME /var/lib/node
 
 
 RUN set -ex \
@@ -30,16 +32,8 @@ RUN set -ex \
     && apk --no-cache --update add npm \
     # 加速Npm
     && npm config set registry https://registry.npmmirror.com \
-    # 安装Yarn依赖管理
-    && npm install --global yarn \
-    # 加速
-    && yarn config set registry https://npmmirror.com \
-    && yarn config set sass_binary_site https://npmmirror.com/mirrors/node-sass/ \
-    && yarn config set phantomjs_cdnurl https://cdn.npmmirror.com/binaries/phantomjs \
-    && yarn config set electron_mirror https://cdn.npmmirror.com/binaries/electron/ \
-    && yarn config set sqlite3_binary_host_mirror https://foxgis.oss-cn-shanghai.aliyuncs.com/ \
-    && yarn config set chromedriver_cdnurl https://cdn.npmmirror.com/binaries/chromedriver \
-    && yarn config set cache-folder ${MODULE_PATH} \
+    # 安装Pnpm依赖管理
+    && npm install --global pnpm \
     \
     \
     \

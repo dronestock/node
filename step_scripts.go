@@ -20,7 +20,7 @@ func (s *stepScripts) Runnable() bool {
 
 func (s *stepScripts) Run(_ context.Context) (err error) {
 	for _, script := range s.Scripts {
-		if err = s.Command(exe).Args("run", script).Dir(s.Source).Exec(); nil != err {
+		if err = s.Command(exe).Args(run, script).Dir(s.Source).Exec(); nil != err {
 			return
 		}
 	}
