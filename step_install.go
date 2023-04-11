@@ -21,7 +21,7 @@ func (i *stepInstall) Runnable() bool {
 }
 
 func (i *stepInstall) Run(_ context.Context) (err error) {
-	ia := args.New().Build().Subcommand(install).Build()
+	ia := args.New().Build().Subcommand(install).Flag("no-frozen-lockfile").Build()
 	_, err = i.Command(exe).Args(ia).Dir(i.Source).Build().Exec()
 
 	return
