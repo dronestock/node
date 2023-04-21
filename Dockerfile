@@ -32,8 +32,20 @@ RUN set -ex \
     && apk --no-cache --update add npm \
     # 加速Npm
     && npm config set registry https://registry.npmmirror.com \
+    \
     # 安装Pnpm依赖管理
     && npm install --global pnpm \
+    \
+    # 安装Yarn依赖管理
+    && npm install --global yarn \
+    # 加速Yarn
+    && yarn config set registry https://npmmirror.com \
+    && yarn config set sass_binary_site https://npmmirror.com/mirrors/node-sass/ \
+    && yarn config set phantomjs_cdnurl https://cdn.npmmirror.com/binaries/phantomjs \
+    && yarn config set electron_mirror https://cdn.npmmirror.com/binaries/electron/ \
+    && yarn config set sqlite3_binary_host_mirror https://foxgis.oss-cn-shanghai.aliyuncs.com/ \
+    && yarn config set chromedriver_cdnurl https://cdn.npmmirror.com/binaries/chromedriver \
+    && yarn config set cache-folder ${MODULE_PATH} \
     \
     \
     \
@@ -43,10 +55,6 @@ RUN set -ex \
     \
     \
     && rm -rf /var/cache/apk/*
-
-
-# 工作目录
-WORKDIR /drone/src
 
 
 # 执行命令

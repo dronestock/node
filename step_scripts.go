@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"strings"
 
 	"github.com/goexl/gox/args"
 )
@@ -22,8 +21,13 @@ func (s *stepScripts) Runnable() bool {
 }
 
 func (s *stepScripts) Run(_ context.Context) (err error) {
-	sa := args.New().Build().Add(strings.Join(s.Scripts, space)).Build()
-	_, err = s.Command(exe).Args(sa).Dir(s.Source).Build().Exec()
+	sa := args.New().Build()
+	if 1 == len(s.Scripts) {
+		sa.Subcommand(s.Scripts[0])
+	} else {
+		sa.Subcommand(s.Scripts[0], s.Scripts[1:]...)
+	}
+	_, err = s.Command(exe).Args(sa.Build()).Dir(s.Source).Build().Exec()
 
 	return
 }

@@ -15,6 +15,8 @@ type plugin struct {
 	Source string `default:"${SOURCE=.}" validate:"required"`
 	// 脚本列表
 	Scripts []string `default:"${SCRIPTS=['build']}" validate:"required,dive"`
+	// 类型
+	Type typ `default:"${COMMAND=pnpm}" validate:"oneof=yarn pnpm"`
 
 	card *card
 }
