@@ -17,7 +17,7 @@ ENV MODULE_PATH /var/lib/node
 # 修复安装其它模块时报SSL Provider错误
 ENV NODE_OPTIONS --openssl-legacy-provider
 # Pnpm模块存储路径
-ENV XDG_DATA_HOME /var/lib/node
+ENV XDG_DATA_HOME ${MODULE_PATH}
 
 
 RUN set -ex \

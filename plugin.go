@@ -11,6 +11,8 @@ import (
 type plugin struct {
 	drone.Base
 
+	// 执行程序
+	Binary binary `default:"${BINARY}"`
 	// 代码
 	Source string `default:"${SOURCE=.}" validate:"required"`
 	// 脚本列表
