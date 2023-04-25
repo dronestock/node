@@ -16,8 +16,10 @@ COPY node /bin
 ENV MODULE_PATH /var/lib/node
 # 修复安装其它模块时报SSL Provider错误
 ENV NODE_OPTIONS --openssl-legacy-provider
-# Pnpm模块存储路径
+# Pnpm缓存路径
 ENV XDG_DATA_HOME ${MODULE_PATH}
+# Yarn缓存路径
+ENV YARN_CACHE_FOLDER ${MODULE_PATH}
 
 
 RUN set -ex \
