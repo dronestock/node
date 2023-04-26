@@ -39,7 +39,7 @@ func (i *stepInstall) pnpm(_ context.Context) (err error) {
 }
 
 func (i *stepInstall) yarn(_ context.Context) (err error) {
-	ia := args.New().Build().Subcommand(install).Flag("prefer-offline")
+	ia := args.New().Build().Subcommand(install).Flag("prefer-offline", "parallel")
 	if i.Verbose {
 		ia.Flag("verbose")
 	}
