@@ -20,28 +20,32 @@ func (i *stepInstall) Runnable() bool {
 	return true
 }
 
-func (i *stepInstall) Run(ctx context.Context) (err error) {
+func (i *stepInstall) Run(_ context.Context) (err error) {
 	switch i.Type {
 	case typeYarn:
-		err = i.yarn(ctx)
+		err = i.yarn()
 	case typePnpm:
-		err = i.pnpm(ctx)
+		err = i.pnpm()
 	}
 
 	return
 }
 
-func (i *stepInstall) pnpm(_ context.Context) (err error) {
-	ia := args.New().Build().Subcommand(install).Flag("no-frozen-lockfile").Build()
-	_, err = i.Command(i.Binary.Pnpm).Args(ia).Dir(i.Source).Build().Exec()
+func (i *stepInstall) pnpm() (err error) {
+	ia := args.New().Build().Subcommand(install)
+	ia.Flag("no-frozen-lockfile")
+	if i.Verbose {
+		ia.Flag(verbose)
+	}
+	_, err = i.Command(i.Binary.Pnpm).Args(ia.Build()).Dir(i.Source).Build().Exec()
 
 	return
 }
 
-func (i *stepInstall) yarn(_ context.Context) (err error) {
+func (i *stepInstall) yarn() (err error) {
 	ia := args.New().Build().Subcommand(install).Flag("prefer-offline", "parallel")
 	if i.Verbose {
-		ia.Flag("verbose")
+		ia.Flag(verbose)
 	}
 	_, err = i.Command(i.Binary.Yarn).Args(ia.Build()).Dir(i.Source).Build().Exec()
 

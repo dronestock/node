@@ -1,3 +1,6 @@
 package main
 
-const install = "install"
+const (
+	install = "install"
+	verbose = "verbose"
+)
