@@ -3,7 +3,7 @@ module github.com/dronestock/node
 go 1.19
 
 require (
-	github.com/dronestock/drone v1.0.0
+	github.com/dronestock/drone v1.0.1
 	github.com/goexl/cryptor v0.0.4
 	github.com/goexl/gox v0.3.4
 )
