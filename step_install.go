@@ -63,7 +63,7 @@ func (i *stepInstall) install(ctx context.Context) (err error) {
 }
 
 func (i *stepInstall) pnpm(_ context.Context) (err error) {
-	ia := args.New().Build().Subcommand(install).Flag("no-frozen-lockfile")
+	ia := args.New().Build().Subcommand(install)
 	if i.Verbose {
 		ia.Flag(verbose)
 	}
