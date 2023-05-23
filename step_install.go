@@ -35,6 +35,10 @@ func (i *stepInstall) Run(ctx context.Context) (err error) {
 }
 
 func (i *stepInstall) link(_ context.Context) (err error) {
+	if typePnpm == i.Type {
+		return
+	}
+
 	name := cryptor.New(os.Getenv(repositoryLink)).Md5().Hex()
 	link := filepath.Join(i.Source, nodeModules)
 	modules := filepath.Join(os.Getenv(modulePath), name)
