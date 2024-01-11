@@ -2,8 +2,9 @@ package main
 
 import (
 	"github.com/dronestock/drone"
+	"github.com/dronestock/node/internal/core"
 )
 
 func main() {
-	drone.New(newPlugin).Boot()
+	drone.New(core.New).Boot()
 }

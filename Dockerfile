@@ -13,13 +13,16 @@ COPY node /bin
 
 
 # 模块存储目录
-ENV MODULE_PATH /var/lib/node
+ENV LIB_PATH /var/lib/node
+ENV MODULE_PATH ${LIB_PATH}/npm
 # 修复安装其它模块时报SSL Provider错误
 ENV NODE_OPTIONS --openssl-legacy-provider
 # Pnpm缓存路径
-ENV XDG_DATA_HOME ${MODULE_PATH}
+# ! 默认路径中已经带有pnpm
+ENV PNPM_HOME ${LIB_PATH}
+ENV XDG_DATA_HOME ${LIB_PATH}
 # Yarn缓存路径
-ENV YARN_CACHE_FOLDER ${MODULE_PATH}
+ENV YARN_CACHE_FOLDER ${LIB_PATH}/yarn
 
 
 RUN set -ex \
@@ -34,9 +37,11 @@ RUN set -ex \
     && apk --no-cache --update add npm \
     # 加速Npm
     && npm config set registry https://registry.npmmirror.com \
+    && npm config set cache ${MODULE_PATH} \
     \
     # 安装Pnpm依赖管理
     && npm install --global pnpm \
+    && pnpm config set store-dir ${PNPM_HOME}/pnpm/store \
     \
     # 安装Yarn依赖管理
     && npm install --global yarn \
@@ -47,7 +52,7 @@ RUN set -ex \
     && yarn config set electron_mirror https://cdn.npmmirror.com/binaries/electron/ \
     && yarn config set sqlite3_binary_host_mirror https://foxgis.oss-cn-shanghai.aliyuncs.com/ \
     && yarn config set chromedriver_cdnurl https://cdn.npmmirror.com/binaries/chromedriver \
-    && yarn config set cache-folder ${MODULE_PATH} \
+    && yarn config set cache-folder ${LIB_PATH}/yarn \
     \
     \
     \
