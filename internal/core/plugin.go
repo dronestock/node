@@ -5,6 +5,7 @@ import (
 
 	"github.com/dronestock/drone"
 	"github.com/dronestock/node/internal/config"
+	"github.com/dronestock/node/internal/internal/constant"
 	"github.com/dronestock/node/internal/internal/core"
 	"github.com/dronestock/node/internal/step"
 	"github.com/goexl/gox"
@@ -42,6 +43,12 @@ func (p *Plugin) Steps() (steps drone.Steps) {
 		scripts.Interrupt()
 	}
 	steps.Add(scripts.Build())
+
+	return
+}
+
+func (p *Plugin) Setup() (err error) {
+	p.Cleanup().Name("清理模块").File(constant.NodeModules).Build()
 
 	return
 }
