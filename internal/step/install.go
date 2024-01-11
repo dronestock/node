@@ -15,11 +15,10 @@ import (
 )
 
 type Install struct {
-	base    *drone.Base
-	source  string
-	typ     core.Type
-	binary  *config.Binary
-	scripts []string
+	base   *drone.Base
+	source string
+	typ    core.Type
+	binary *config.Binary
 }
 
 func NewInstall(base *drone.Base, source string, typ core.Type, binary *config.Binary) *Install {
