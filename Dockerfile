@@ -1,4 +1,4 @@
-FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.16.2
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/node:20.19.6-alpine3.23
 
 
 LABEL author="storezhang<华寅>" \
