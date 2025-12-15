@@ -42,9 +42,6 @@ RUN set -ex \
     # 安装Pnpm依赖管理
     && npm install --global pnpm \
     && pnpm config set store-dir ${PNPM_HOME}/pnpm/store \
-    \
-    # 安装Yarn依赖管理
-    && npm install --global yarn \
     # 加速Yarn
     && yarn config set registry https://npmmirror.com \
     && yarn config set sass_binary_site https://npmmirror.com/mirrors/node-sass/ \
